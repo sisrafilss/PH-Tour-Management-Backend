@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Router } from "express";
 import { UserControllers } from "./user.controller";
 
