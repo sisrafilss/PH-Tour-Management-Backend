@@ -16,35 +16,32 @@ const createUser = catchAsync(
   }
 );
 
-// const createUser = async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const user = await UserServices.createUser(req.body);
-//     res
-//       .status(httpStatus.CREATED)
-//       .json({ message: "User created successfully!", user });
-//   } catch (err: any) {
-//     // eslint-disable-next-line no-console
-//     console.log(err);
-//     next(err);
+const updateUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.params.id;
 
-//     // res.status(httpStatus.BAD_REQUEST).json({
-//     //   message: `Something went wrong! ${err.message}`,
-//     //   err,
-//     // });
-//   }
-// };
+    // const token = req.headers.authorization;
+    // const verifiedToken = verifyToken(
+    //   token as string,
+    //   envVars.JWT_ACCESS_SECRET
+    // ) as JwtPayload;
+    const verifiedToken = req.user;
 
-//
+    const payload = req.body;
+    const user = await UserServices.updateUser(userId, payload, verifiedToken);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.CREATED,
+      message: "User updated successfully!",
+      data: user,
+    });
+  }
+);
+
 const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const result = await UserServices.getAllUsers();
-    // res.status(httpStatus.OK).json({
-    //   success: true,
-    //   message: "All users retrived successfully!",
-    //   data: users,
-    // });
-    // console.log(users);
-
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
@@ -58,4 +55,5 @@ const getAllUsers = catchAsync(
 export const UserControllers = {
   createUser,
   getAllUsers,
+  updateUser,
 };
