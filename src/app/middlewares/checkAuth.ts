@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from "express";
+import httpStatus from "http-status-codes";
 import { JwtPayload } from "jsonwebtoken";
 import { envVars } from "../config/env";
 import AppError from "../errorHelpers/AppError";
+import { IsActive } from "../modules/user/user.interface";
+import { User } from "../modules/user/user.model";
 import { verifyToken } from "../utils/jwt";
 
 export const checkAuth =
@@ -16,6 +19,27 @@ export const checkAuth =
         accessToken,
         envVars.JWT_ACCESS_SECRET
       ) as JwtPayload;
+
+      const isUserExists = await User.findOne({
+        email: verifiedToken.email,
+      });
+      if (!isUserExists) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User does not exist");
+      }
+
+      if (
+        isUserExists.isActive === IsActive.BLOCKED ||
+        isUserExists.isActive === IsActive.INACTIVE
+      ) {
+        throw new AppError(
+          httpStatus.BAD_REQUEST,
+          `User is ${isUserExists.isActive}`
+        );
+      }
+
+      if (isUserExists.isDeleted) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User is deleted!");
+      }
 
       // attach verified user in req
       req.user = verifiedToken;
