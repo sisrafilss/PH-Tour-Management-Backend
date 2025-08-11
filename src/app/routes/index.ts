@@ -2,6 +2,9 @@ import { Router } from "express";
 import { authRoutes } from "../modules/auth/auth.route";
 import { DivisionRoutes } from "../modules/division/division.route";
 
+import { bookingRoutes } from "../modules/booking/booking.route";
+
+import { PaymentRoutes } from "../modules/payment/payment.route";
 import { TourRoutes } from "../modules/tour/tour.route";
 import { UserRoutes } from "../modules/user/user.route";
 
@@ -23,6 +26,14 @@ const moduleRoutes = [
   {
     path: "/tour",
     route: TourRoutes,
+  },
+  {
+    path: "/booking",
+    route: bookingRoutes,
+  },
+  {
+    path: "/payment",
+    route: PaymentRoutes,
   },
 ];
 

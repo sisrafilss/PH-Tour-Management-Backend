@@ -1,6 +1,5 @@
 [
   {
-    "_id": "5db9700037ad488fb08a3c6f",
     "title": "Hiking in Bandarban",
     "description": "Conquer the hills with guided hiking, tribal village visits, and stargazing.",
     "images": [],
@@ -29,7 +28,6 @@
     "__v": 0
   },
   {
-    "_id": "7a06263affdd4dfd8894b65c",
     "title": "Hiking in Bandarban",
     "description": "Conquer the hills with guided hiking, tribal village visits, and stargazing.",
     "images": [],
@@ -63,7 +61,6 @@
     "__v": 0
   },
   {
-    "_id": "8360004e1a2143f7a4be626a",
     "title": "Rangamati Serenity Cruise",
     "description": "Enjoy houseboat cruising and tribal crafts around the stunning lake.",
     "images": [],
@@ -92,7 +89,6 @@
     "__v": 0
   },
   {
-    "_id": "9c243afd485b4c50888704e1",
     "title": "Srimangal Wildlife Expedition",
     "description": "Spot rare animals in Lawachara forest and taste seven-layer tea.",
     "images": [],
@@ -126,7 +122,6 @@
     "__v": 0
   },
   {
-    "_id": "82a8827c6fa447c08716e86b",
     "title": "Cox's Bazar Beach Bonanza",
     "description": "Relax on the longest beach, beach games, surfing, and seafood feast.",
     "images": [],
@@ -161,7 +156,6 @@
   },
 
   {
-    "_id": "f259df52bcd54d3ca886fc47",
     "title": "Paharpur & Mahasthangarh Heritage Trail",
     "description": "Uncover Buddhist ruins and museum treasures with expert guides.",
     "images": [],
@@ -195,7 +189,6 @@
     "__v": 0
   },
   {
-    "_id": "0918799672df4ef4b168f6ea",
     "title": "Sundarbans Mangrove Adventure",
     "description": "Cruise deep into tiger territory, birdwatching and night safaris await.",
     "images": [],
@@ -224,7 +217,6 @@
     "__v": 0
   },
   {
-    "_id": "a9e3a55ec2204213b1b9d822",
     "title": "Lalakhal River Retreat",
     "description": "Glass boat rides, turquoise river, and tea garden strolls in Sylhet.",
     "images": [],
@@ -263,7 +255,6 @@
     "__v": 0
   },
   {
-    "_id": "c7bcd01465ae4a8ba403f505",
     "title": "Tea Gardens & Tribal Tales",
     "description": "Live among the Monipuri community and explore Jaflong’s rock gardens.",
     "images": [],
@@ -292,7 +283,6 @@
     "__v": 0
   },
   {
-    "_id": "a62b19e49ac3413e87ecfc86",
     "title": "Padma River Houseboat Night",
     "description": "Floating dinner and musical night on Padma, with sunrise breakfast.",
     "images": [],
@@ -327,7 +317,6 @@
   },
 
   {
-    "_id": "5c0c953127b5461fa52aa7c6",
     "title": "Saint Martin’s Coral Nights",
     "description": "Bonfire on the beach, coral island exploration, and seafood feasts.",
     "images": [],
@@ -356,7 +345,6 @@
     "__v": 0
   },
   {
-    "_id": "8c4a7a6a6af94d2992c14d87",
     "title": "Bandarban Cloud Treks",
     "description": "Hike Nilgiri and stay with tribal hosts among misty hills.",
     "images": [],
@@ -390,7 +378,6 @@
     "__v": 0
   },
   {
-    "_id": "77508cd087b1412aa730a46f",
     "title": "Comilla War & Mura Monuments",
     "description": "Travel through WWII cemeteries and ancient Buddhist stupas.",
     "images": [],
@@ -414,7 +401,6 @@
     "__v": 0
   },
   {
-    "_id": "16d135feae1b42a397ecbce0",
     "title": "Barisal River Delta Discovery",
     "description": "Backwater boat tours, guava floating markets, and river folk music.",
     "images": [],
@@ -448,7 +434,6 @@
     "__v": 0
   },
   {
-    "_id": "bd8083e77fcb463db14c27b4",
     "title": "Mymensingh Art & Folk Festival",
     "description": "Explore Shilpacharya Zainul’s museum, folk dance, and pottery workshops.",
     "images": [],
@@ -483,7 +468,6 @@
   },
 
   {
-    "_id": "2a3fc1c4f2354e1ebad5deaa",
     "title": "Paharpur Buddhist Heritage Trail",
     "description": "Visit UNESCO ruins of Somapura Mahavihara and nearby temples.",
     "images": [],
@@ -512,7 +496,6 @@
     "__v": 0
   },
   {
-    "_id": "572d539ca5c94690b7fda6f3",
     "title": "Sundarbans Eco Safari",
     "description": "Tiger tracking, mangrove boat cruise, and watch towers.",
     "images": [],
@@ -542,7 +525,6 @@
     "__v": 0
   },
   {
-    "_id": "33d67913cf6246c987ed5a14",
     "title": "Tea Garden Escape Sylhet",
     "description": "Green hill tea estates, waterfalls, and Sylheti cuisine.",
     "images": [],
@@ -571,7 +553,6 @@
     "__v": 0
   },
   {
-    "_id": "bd2e8c4dba804a30a4fc99a3",
     "title": "Dhaka City Express",
     "description": "One-day guided city tour including Lalbagh, Ahsan Manzil, and street food.",
     "images": [],
@@ -599,7 +580,6 @@
     "__v": 0
   },
   {
-    "_id": "70fe6ae2b3b04914a648e8ab",
     "title": "Cox’s Bazar Sunset Retreat",
     "description": "Luxury beachside resort, sea view dinner, and Himchori trip.",
     "images": [],
@@ -634,7 +614,6 @@
   },
 
   {
-    "_id": "5c5c130e1316487bb9d19851",
     "title": "Lalmonirhat Countryside Discovery",
     "description": "Experience rural lifestyle, river walks, and folk music.",
     "images": [],
@@ -662,7 +641,6 @@
     "__v": 0
   },
   {
-    "_id": "113f6ec6ec50409eb251a11d",
     "title": "Mahasthangarh Heritage Day",
     "description": "One-day trip to ancient ruins with archaeological briefing.",
     "images": [],
@@ -686,7 +664,6 @@
     "__v": 0
   },
   {
-    "_id": "91b85b27e50c4b6ba1a75bb5",
     "title": "Bandarban Trekking Adventure",
     "description": "Climb Nilgiri & explore tribal villages with overnight camping.",
     "images": [],
@@ -715,7 +692,6 @@
     "__v": 0
   },
   {
-    "_id": "ff52b6a8a14c4d8dbe0c6c39",
     "title": "Rangamati Lake and Culture Tour",
     "description": "Boat cruise, tribal museum, and hanging bridge experience.",
     "images": [],
@@ -739,7 +715,6 @@
     "__v": 0
   },
   {
-    "_id": "a3050f72aa254216a17df7a2",
     "title": "St. Martin's Coral Weekend",
     "description": "Explore the only coral island of Bangladesh by sea.",
     "images": [],
@@ -769,7 +744,6 @@
   },
 
   {
-    "_id": "f3952367e54b4ac2b8918e79",
     "title": "Kaptai Lake Relaxation Cruise",
     "description": "Two-day houseboat experience with local cuisine and stargazing.",
     "images": [],
@@ -798,7 +772,6 @@
     "__v": 0
   },
   {
-    "_id": "a202c8dc0de5464198e430f5",
     "title": "Sundarbans Wildlife Safari",
     "description": "Discover Bengal tigers, deer, and mangroves via boat expedition.",
     "images": [],
@@ -837,7 +810,6 @@
     "__v": 0
   },
   {
-    "_id": "ed9d4ea94ef148de8f1118ff",
     "title": "Paharpur Monastery & Naogaon Trail",
     "description": "Historic day trip with photography & local lunch included.",
     "images": [],
@@ -861,7 +833,6 @@
     "__v": 0
   },
   {
-    "_id": "cd2df69f0a1f4dc09d3e738e",
     "title": "Madhabkunda Eco Hike",
     "description": "A refreshing nature walk to Bangladesh’s largest waterfall.",
     "images": [],
@@ -885,7 +856,6 @@
     "__v": 0
   },
   {
-    "_id": "a593ecf1065d4b2cbd2cf4e7",
     "title": "Nilphamari Folk Village Tour",
     "description": "Cultural day trip to traditional crafts and music village.",
     "images": [],
