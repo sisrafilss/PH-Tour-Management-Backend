@@ -135,6 +135,7 @@ const getAllTours = async (query: Record<string, string>) => {
 
 const updateTour = async (id: string, payload: Partial<ITour>) => {
   const existingTour = await Tour.findById(id);
+  console.log("existing tour:", existingTour);
   if (!existingTour) {
     throw new Error("Tour type not found");
   }
