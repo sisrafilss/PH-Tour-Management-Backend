@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
+import { deleteImageFromCloudinary } from "../config/cludinary.config";
 import { envVars } from "../config/env";
 import AppError from "../errorHelpers/AppError";
 import { handleCastError } from "../helpers/handleCastError";
@@ -10,7 +11,7 @@ import { handleValidationError } from "../helpers/handleValidationError";
 import { handleZodError } from "../helpers/handleZodError";
 import { TErrorSources } from "../interfaces/error.types";
 
-export const globalErrorHandler = (
+export const globalErrorHandler = async (
   err: any,
   req: Request,
   res: Response,
@@ -23,6 +24,15 @@ export const globalErrorHandler = (
 
   if (envVars.NODE_ENV === "development") {
     console.log(err);
+    if (req.file) {
+      await deleteImageFromCloudinary(req.file.path);
+    }
+    if (req.files && Array.isArray(req.files) && req.files.length) {
+      const imgUrls = (req.files as Express.Multer.File[]).map(
+        (file) => file.path
+      );
+      await Promise.all(imgUrls.map((url) => deleteImageFromCloudinary(url)));
+    }
   }
 
   // Duplicate error

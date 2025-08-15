@@ -1,5 +1,9 @@
+import { deleteImageFromCloudinary } from "../../config/cludinary.config";
 import { QueryBuilder } from "../../utils/QueryBuilder";
-import { tourSearchableFields } from "./tour.constant";
+import {
+  tourSearchableFields,
+  tourTypeSearchableFields,
+} from "./tour.constant";
 import { ITour, ITourType } from "./tour.interface";
 import { Tour, TourType } from "./tour.model";
 
@@ -13,15 +17,24 @@ const createTourType = async (name: string) => {
   return await TourType.create({ name });
 };
 
-const getAllTourTypes = async () => {
-  const tourTypes = await TourType.find({});
-  const totalTours = await TourType.countDocuments();
+const getAllTourTypes = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(TourType.find(), query);
+
+  const tourTypes = await queryBuilder
+    .search(tourTypeSearchableFields)
+    .filter()
+    .sort()
+    .fields()
+    .paginate();
+
+  const [data, meta] = await Promise.all([
+    tourTypes.build(),
+    queryBuilder.getMeta(),
+  ]);
 
   return {
-    data: tourTypes,
-    meta: {
-      total: totalTours,
-    },
+    data,
+    meta,
   };
 };
 
@@ -135,7 +148,6 @@ const getAllTours = async (query: Record<string, string>) => {
 
 const updateTour = async (id: string, payload: Partial<ITour>) => {
   const existingTour = await Tour.findById(id);
-  console.log("existing tour:", existingTour);
   if (!existingTour) {
     throw new Error("Tour type not found");
   }
@@ -151,9 +163,45 @@ const updateTour = async (id: string, payload: Partial<ITour>) => {
     payload.slug = slug;
   }
 
-  const updatedTour = await Tour.findByIdAndUpdate(id, payload, {
-    new: true,
-  });
+  if (
+    payload.images &&
+    payload.images.length > 0 &&
+    existingTour.images &&
+    existingTour.images.length
+  ) {
+    payload.images = [...payload.images, ...existingTour.images];
+  }
+
+  if (
+    payload.deleteImages &&
+    payload.deleteImages.length > 0 &&
+    existingTour.images &&
+    existingTour.images.length > 0
+  ) {
+    const restDBImage = existingTour.images.filter(
+      (imageUrl) => !payload.deleteImages?.includes(imageUrl)
+    );
+
+    const updatedPayloadImages = (payload.images || [])
+      .filter((imageUrl) => !payload.deleteImages?.includes(imageUrl))
+      .filter((imageUrl) => !restDBImage.includes(imageUrl));
+
+    payload.images = [...restDBImage, ...updatedPayloadImages];
+  }
+
+  const updatedTour = await Tour.findByIdAndUpdate(id, payload, { new: true });
+
+  if (
+    payload.deleteImages &&
+    payload.deleteImages.length > 0 &&
+    existingTour.images &&
+    existingTour.images.length > 0
+  ) {
+    await Promise.all(
+      payload.deleteImages.map((url) => deleteImageFromCloudinary(url))
+    );
+  }
+
   return updatedTour;
 };
 
