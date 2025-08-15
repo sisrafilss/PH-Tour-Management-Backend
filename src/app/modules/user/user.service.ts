@@ -3,6 +3,8 @@ import httpStatus from "http-status-codes";
 import { JwtPayload } from "jsonwebtoken";
 import { envVars } from "../../config/env";
 import AppError from "../../errorHelpers/AppError";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { userSearchableFields } from "./user.constant";
 import { IAuthProvider, IUser, Role } from "./user.interface";
 import { User } from "./user.model";
 
@@ -10,7 +12,7 @@ const createUser = async (payload: Partial<IUser>) => {
   const { email, password, ...rest } = payload;
 
   // check if user already exists
-  const isUserExists = await User.findOne({ email });
+  // const isUserExists = await User.findOne({ email });
   // if (isUserExists) {
   //   throw new AppError(httpStatus.BAD_REQUEST, "User Already Exists");
   // }
@@ -21,7 +23,7 @@ const createUser = async (payload: Partial<IUser>) => {
   );
 
   const authProvider: IAuthProvider = {
-    provider: "credential",
+    provider: "credentials",
     providerId: email as string,
   };
   const user = await User.create({
@@ -33,13 +35,37 @@ const createUser = async (payload: Partial<IUser>) => {
   return user;
 };
 
-const getAllUsers = async () => {
-  const result = await User.find({});
+const getAllUsers = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(User.find(), query);
+
+  const userData = queryBuilder
+    .filter()
+    .search(userSearchableFields)
+    .sort()
+    .fields()
+    .paginate();
+
+  const [data, meta] = await Promise.all([
+    userData.build(),
+    queryBuilder.getMeta(),
+  ]);
+
+  return {
+    data,
+    meta,
+  };
+};
+
+const getSingleUser = async (id: string) => {
+  const result = await User.findById(id).select("-password");
   return {
     data: result,
-    meta: {
-      total: result.length,
-    },
+  };
+};
+const getMe = async (userId: string) => {
+  const result = await User.findById(userId).select("-password");
+  return {
+    data: result,
   };
 };
 
@@ -93,4 +119,6 @@ export const UserServices = {
   createUser,
   getAllUsers,
   updateUser,
+  getMe,
+  getSingleUser,
 };

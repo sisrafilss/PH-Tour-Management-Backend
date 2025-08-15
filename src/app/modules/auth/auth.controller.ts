@@ -81,17 +81,62 @@ const logout = catchAsync(
     });
   }
 );
-const resetPassword = catchAsync(
+const changePassword = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const oldPasswrod = req.body.oldPassword;
     const newPassword = req.body.newPassword;
     const decodedToken = req.user;
 
-    await AuthServices.resetPassword(
+    await AuthServices.changePassword(
       oldPasswrod,
       newPassword,
       decodedToken as JwtPayload
     );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Password changed successfully!!",
+      data: null,
+    });
+  }
+);
+const setPassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const { password } = req.body;
+
+    await AuthServices.setPassword(decodedToken.userId, password);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Password reset successfully!!",
+      data: null,
+    });
+  }
+);
+
+const forgotPassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { email } = req.body;
+
+    await AuthServices.forgotPassword(email);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Email sent successfully!!",
+      data: null,
+    });
+  }
+);
+
+const resetPassword = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user;
+
+    await AuthServices.resetPassword(req.body, decodedToken as JwtPayload);
 
     sendResponse(res, {
       success: true,
@@ -137,4 +182,9 @@ export const AuthControllers = {
   logout,
   resetPassword,
   googleCallbackController,
+  changePassword,
+  setPassword,
+  forgotPassword,
 };
+
+//http://localhost:5173/reset-password?id=689eac3bd25de4d81d1a4189&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODllYWMzYmQyNWRlNGQ4MWQxYTQxODkiLCJlbWFpbCI6ImlzcmFmaWxob3NzZW4zQGdtYWlsLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU1MjMxNDI1LCJleHAiOjE3NTUyMzIwMjV9.uypGlLWyfOhseaTTFEAsI7VjfyXnBmA9Vx2yNf1RkCs

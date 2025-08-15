@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status-codes";
+import { JwtPayload } from "jsonwebtoken";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { UserServices } from "./user.service";
@@ -22,7 +23,11 @@ const updateUser = catchAsync(
     const verifiedToken = req.user;
 
     const payload = req.body;
-    const user = await UserServices.updateUser(userId, payload, verifiedToken);
+    const user = await UserServices.updateUser(
+      userId,
+      payload,
+      verifiedToken as JwtPayload
+    );
 
     sendResponse(res, {
       success: true,
@@ -35,7 +40,10 @@ const updateUser = catchAsync(
 
 const getAllUsers = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await UserServices.getAllUsers();
+    const query = req.query;
+    const result = await UserServices.getAllUsers(
+      query as Record<string, string>
+    );
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
@@ -45,9 +53,36 @@ const getAllUsers = catchAsync(
     });
   }
 );
+const getSingleUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await UserServices.getSingleUser(decodedToken.userId);
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Your data retrived successfully!",
+      data: result.data,
+    });
+  }
+);
+
+const getMe = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const decodedToken = req.user as JwtPayload;
+    const result = await UserServices.getMe(decodedToken.userId);
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Your data retrived successfully!",
+      data: result.data,
+    });
+  }
+);
 
 export const UserControllers = {
   createUser,
   getAllUsers,
   updateUser,
+  getMe,
+  getSingleUser,
 };
