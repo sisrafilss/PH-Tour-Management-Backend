@@ -1,3 +1,6 @@
+import { deleteImageFromCloudinary } from "../../config/cludinary.config";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { divisionSearchableFields } from "./division.constant";
 import { IDivision } from "./division.interface";
 import { Division } from "./division.model";
 
@@ -20,15 +23,24 @@ const createDivision = async (payload: IDivision) => {
   return division;
 };
 
-const getAllDivisions = async () => {
-  const divisions = await Division.find({});
-  const totalDivisions = await Division.countDocuments();
+const getAllDivisions = async (query: Record<string, string>) => {
+  const queryBuilder = new QueryBuilder(Division.find(), query);
+
+  const divisionsData = queryBuilder
+    .search(divisionSearchableFields)
+    .filter()
+    .sort()
+    .fields()
+    .paginate();
+
+  const [data, meta] = await Promise.all([
+    divisionsData.build(),
+    queryBuilder.getMeta(),
+  ]);
 
   return {
-    data: divisions,
-    meta: {
-      total: totalDivisions,
-    },
+    data,
+    meta,
   };
 };
 const getSingleDivision = async (slug: string) => {
@@ -45,6 +57,8 @@ const updateDivision = async (id: string, payload: Partial<IDivision>) => {
     throw new Error("Division not found");
   }
 
+  console.log(payload);
+
   const duplicateDivision = await Division.findOne({
     name: payload.name,
     _id: { $ne: id },
@@ -52,10 +66,6 @@ const updateDivision = async (id: string, payload: Partial<IDivision>) => {
 
   if (duplicateDivision) {
     throw new Error("A division with this name already exists.");
-  }
-
-  if (!payload.name) {
-    throw new Error("Division name is required to update slug.");
   }
 
   // const baseSlug = payload.name.toLocaleLowerCase().split(" ").join("-");
@@ -67,12 +77,16 @@ const updateDivision = async (id: string, payload: Partial<IDivision>) => {
   // }
   // payload.slug = slug;
 
-  const upudatedDivision = await Division.findByIdAndUpdate(id, payload, {
+  const updatedDivision = await Division.findByIdAndUpdate(id, payload, {
     new: true,
     runValidators: true,
   });
 
-  return upudatedDivision;
+  if (payload.thumbnail && existingDivision.thumbnail) {
+    await deleteImageFromCloudinary(existingDivision.thumbnail);
+  }
+
+  return updatedDivision;
 };
 
 const deleteDivision = async (id: string) => {
