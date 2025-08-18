@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OtpRoutes = void 0;
+const express_1 = require("express");
+const validateRequest_1 = require("../../middlewares/validateRequest");
+const otp_controller_1 = require("./otp.controller");
+const otp_validation_1 = require("./otp.validation");
+const router = (0, express_1.Router)();
+router.post("/send", (0, validateRequest_1.validateRequest)(otp_validation_1.sendOTPZodSchema), otp_controller_1.OTPController.sendOTP);
+router.post("/verify", (0, validateRequest_1.validateRequest)(otp_validation_1.verifyOTPZodSchema), otp_controller_1.OTPController.verifyOTP);
+exports.OtpRoutes = router;

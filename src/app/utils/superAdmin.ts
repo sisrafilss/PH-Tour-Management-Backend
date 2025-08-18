@@ -23,7 +23,7 @@ export const seedSuperAdmin = async () => {
     );
 
     const authProvider: IAuthProvider = {
-      provider: "credential",
+      provider: "credentials",
       providerId: envVars.SUPER_ADMIN_EMAIL,
     };
 

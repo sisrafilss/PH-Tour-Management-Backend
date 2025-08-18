@@ -19,7 +19,7 @@ const paymentSchema = new Schema<IPayment>(
     paymentGatewayData: {
       type: Schema.Types.Mixed,
     },
-    invoidUrl: {
+    invoiceUrl: {
       type: String,
     },
     status: {
