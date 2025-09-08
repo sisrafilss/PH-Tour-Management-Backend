@@ -6,5 +6,5 @@ export const sendOTPZodSchema = z.object({
 
 export const verifyOTPZodSchema = z.object({
   email: z.string().email(),
-  otp: z.number(),
+  otp: z.string(),
 });
