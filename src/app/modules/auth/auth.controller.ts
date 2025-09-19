@@ -50,7 +50,7 @@ const getNewAccessToken = catchAsync(
     const accessToken = await AuthServices.getNewAccessToken(
       refreshToken as string
     );
-
+    setAuthCookie(res, accessToken);
     sendResponse(res, {
       success: true,
       statusCode: httpStatus.OK,
