@@ -71,13 +71,15 @@ const getNewAccessToken = (0, catchAsync_1.catchAsync)((req, res, next) => __awa
 const logout = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     res.clearCookie("accessToken", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: env_1.envVars.NODE_ENV === "production", // true in production
+        sameSite: env_1.envVars.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+        domain: env_1.envVars.NODE_ENV === "production" ? env_1.envVars.FRONTEND_URL : undefined, // optional if using subdomains
     });
     res.clearCookie("refreshToken", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax",
+        secure: env_1.envVars.NODE_ENV === "production", // true in production
+        sameSite: env_1.envVars.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+        domain: env_1.envVars.NODE_ENV === "production" ? env_1.envVars.FRONTEND_URL : undefined, // optional if using subdomains
     });
     (0, sendResponse_1.sendResponse)(res, {
         success: true,
