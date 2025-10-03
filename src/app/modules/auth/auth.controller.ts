@@ -64,13 +64,17 @@ const logout = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     res.clearCookie("accessToken", {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: envVars.NODE_ENV === "production", // true in production
+      sameSite: envVars.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+      domain:
+        envVars.NODE_ENV === "production" ? envVars.FRONTEND_URL : undefined, // optional if using subdomains
     });
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: envVars.NODE_ENV === "production", // true in production
+      sameSite: envVars.NODE_ENV === "production" ? "none" : "lax", // none for cross-site
+      domain:
+        envVars.NODE_ENV === "production" ? envVars.FRONTEND_URL : undefined, // optional if using subdomains
     });
 
     sendResponse(res, {
